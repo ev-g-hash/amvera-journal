@@ -3,7 +3,7 @@ meta:
   environment: python
   configuration: docker
 
-imageName: "pihta-journal"  # при необходимости измените имя образа
+imageName: "amv-journal"  # при необходимости измените имя образа
 run:
   port: 8000
   restartPolicy: always
