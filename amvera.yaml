@@ -1,9 +1,9 @@
 # amvera.yaml
 meta:
   environment: python
+  toolchain: docker
   configuration: docker
 
-imageName: "amv-journal"  # при необходимости измените имя образа
 run:
   port: 8000
   restartPolicy: always
