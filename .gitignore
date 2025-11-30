@@ -55,7 +55,6 @@ ehthumbs.db
 Thumbs.db
 
 # Docker
-Dockerfile
 .dockerignore
 .docker/
 
@@ -67,3 +66,4 @@ htmlcov/
 # Backup files
 *.bak
 *.backup
+
