@@ -7,17 +7,21 @@ from dotenv import load_dotenv
 try:
     load_dotenv()
 except Exception:
-    pass  # Игнорируем ошибки загрузки .env
+    pass
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Секретный ключ из переменных окружения
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me-in-prod')
 
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-# Разрешённые хосты
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+# Доверенные источники для CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'https://amv-journal-pihtulovevgeny.amvera.io',
+    'http://amv-journal-pihtulovevgeny.amvera.io',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -61,7 +65,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-# База данных - в папке /data для сохранения между перезапусками
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -89,13 +92,11 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 USE_TZ = True
 
-# Статика
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Медиа файлы (если будут)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -117,7 +118,6 @@ LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'journal:index'
 LOGOUT_REDIRECT_URL = 'journal:index'
 
-# Логирование
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
