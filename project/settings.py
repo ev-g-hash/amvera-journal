@@ -15,7 +15,14 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me-in-prod')
 
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+# Добавляем localhost и 127.0.0.1 для локальной разработки
+allowed_hosts = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
+if 'localhost' not in allowed_hosts:
+    allowed_hosts.append('localhost')
+if '127.0.0.1' not in allowed_hosts:
+    allowed_hosts.append('127.0.0.1')
+ALLOWED_HOSTS = allowed_hosts
 
 # Доверенные источники для CSRF
 CSRF_TRUSTED_ORIGINS = [
@@ -70,7 +77,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '/data/db.sqlite3',
     }
-}
+}                                       # для продакшена на амвера
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}                                       # для локальной версии
 
 AUTH_PASSWORD_VALIDATORS = [
     {
